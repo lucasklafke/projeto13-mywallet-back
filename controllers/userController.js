@@ -1,18 +1,11 @@
-import joi from "joi"
 import bcrypt from "bcrypt"
 import {v4 as uuid} from "uuid"
 
 import db from "./../db.js"
-import loginSchema from "./../Schemas/loginSchema.js" 
 
 export async function postUser(req,res){
     const {email, password} = req.body
 
-    const validation = loginSchema.validate({email,password})
-
-    if(!validation){
-        res.status(500).send("Invalid  login, try again!")
-    }
     try{
        const users = db.collection("users")
        const user = await users.findOne({email})

@@ -1,7 +1,6 @@
 import express, {json} from "express"
 import dotenv from "dotenv"
 import cors from "cors"
-import db from "./db.js"
 
 import userRouter from "./routes/userRoutes.js"
 
