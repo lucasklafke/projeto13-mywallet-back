@@ -3,15 +3,13 @@ import dotenv from "dotenv"
 import cors from "cors"
 import db from "./db.js"
 
-import { postUser , getUser} from "./controllers/userController.js"
+import userRouter from "./routes/userRoutes.js"
 
 const app = express()
+
 
 app.listen(5000)
 app.use(json())
 app.use(cors())
+app.use(userRouter)
 
-
-app.post("/user", postUser )
-
-app.get("/user", getUser)
