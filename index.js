@@ -4,6 +4,7 @@ import cors from "cors"
 
 import userRouter from "./routes/userRoutes.js"
 import signUpRouter from "./routes/signUpRoutes.js"
+import transactionRouter from "./routes/transactionRoutes.js"
 const app = express()
 
 
@@ -13,4 +14,4 @@ app.use(cors())
 
 app.use(userRouter)
 app.use(signUpRouter)
-
+app.use(transactionRouter)
