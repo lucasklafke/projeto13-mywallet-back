@@ -5,24 +5,26 @@ import db from "./../db.js"
 
 export async function postUser(req,res){
     const {email, password} = req.body
-
+    console.log(email)
+    console.log(password)
     try{
        const users = db.collection("users")
        const user = await users.findOne({email})
-
-       if(user && bcrypt.compareSync(password, user.password)){
+       if(user && bcrypt.compareSync(password, user.encryptedPassword)){
             const token = uuid()
             
             const sessions = db.collection("sessions") 
-            await sessions.insertOne({email,token})
+            await sessions.insertOne({email, token, date: Date()})
             
+
+
             res.send(token)
        } else{
            res.send("Invalid user")
        }
     }catch(error){
         res.send(error)
-        console.log("nao deu bom")
+        console.log("nao deu bom",error.message)
     }
 }
 
