@@ -34,12 +34,11 @@ export async function loginUser(req,res){
 
 
 export async function getUser(req, res) {
-    console.log(req.body.name)
+    const email = res.locals.email
     try {
         const users = db.collection("users")
-        const array = await users.find({}).toArray()
-        console.log(array)
-        res.send(array)
+        const user = await users.findOne({email})
+        res.send(user.name)
     } catch (error) {
         res.send(error)
         console.log("nao deu bom")
