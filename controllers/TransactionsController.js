@@ -1,7 +1,8 @@
 import db from "../db.js"
 import transactionsSchema from "../Schemas/transactionSchema.js"
 export async function getTransactions(req,res){
-    const {email} = req.body
+    const email = res.locals.email
+    console.log(email)
     try{
         const transactionsCollection = db.collection("transactions")
         const transactions = await transactionsCollection.find({email}).toArray()
@@ -16,12 +17,14 @@ export async function getTransactions(req,res){
 export async function deposit(req,res){
     const {email, amount} = req.body
     const validation = transactionsSchema.validate(req.body)
+
+    const date = new Date()
     if (validation.error) {
-        return res.status(422).send("request not valid!")
+        return res.status(422).send(validation.error.message)
     }
     try {
         const transactionsCollection = db.collection("transactions")
-        const deposit = await transactionsCollection.insertOne({ email, amount, type:"deposit"})
+        const deposit = await transactionsCollection.insertOne({ email, amount, type:"deposit",date: date.toLocaleDateString()})
         if (deposit) {
             res.send("deposit made successfully!")
         }
@@ -36,11 +39,11 @@ export async function withdraw(req, res) {
     const validation = transactionsSchema.validate(req.body)
 
     if(validation.error){
-        return res.status(422).send("request not valid!")
+        return res.status(422).send(validation.error.message)
     }
     try {
         const transactionsCollection = db.collection("transactions")
-        const withdraw = await transactionsCollection.insertOne({ email, amount, type:"withdraw" })
+        const withdraw = await transactionsCollection.insertOne({ email, amount, type: "withdraw", date: date.toLocaleDateString() })
         if (withdraw) {
             res.send("withdraw made successfully!")
         }

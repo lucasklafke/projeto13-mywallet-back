@@ -4,7 +4,7 @@ import {deposit,withdraw,getTransactions} from "../controllers/TransactionsContr
 import validateToken from "../middlewares/validateToken.js"
 const transactionRouter = express.Router()
 
-transactionRouter.get("/transactions", getTransactions)
+transactionRouter.get("/transactions",validateToken, getTransactions)
 
 transactionRouter.post("/transactions/deposit", deposit)
 

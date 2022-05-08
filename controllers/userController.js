@@ -3,7 +3,7 @@ import {v4 as uuid} from "uuid"
 
 import db from "./../db.js"
 
-export async function postUser(req,res){
+export async function loginUser(req,res){
     const {email, password} = req.body
     console.log(email)
     console.log(password)
@@ -11,6 +11,7 @@ export async function postUser(req,res){
        const users = db.collection("users")
        const user = await users.findOne({email})
        if(user && bcrypt.compareSync(password, user.encryptedPassword)){
+           console.log("entrei")
             const token = uuid()
             
             const sessions = db.collection("sessions") 
