@@ -8,6 +8,7 @@ import transactionRouter from "./routes/transactionRoutes.js"
 const app = express()
 
 
+
 app.listen(process.env.PORT)
 app.use(json())
 app.use(cors())

@@ -14,7 +14,6 @@ async function validateToken(req,res,next){
         const sessions = db.collection("sessions")
         const session = await sessions.findOne({token})
         if(session){
-            console.log("session", session)
             res.locals.email = session.email
             res.locals.token = token
         }
