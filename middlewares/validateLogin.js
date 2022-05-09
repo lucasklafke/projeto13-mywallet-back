@@ -1,7 +1,7 @@
 import loginSchema from "./../Schemas/loginSchema.js" 
 import joi from "joi"
 
-export async function validateLogin(req,res,next){
+export default async function validateLogin(req,res,next){
     const validation = loginSchema.validate(req.body)
     
     if (validation.error) {

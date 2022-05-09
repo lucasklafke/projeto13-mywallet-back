@@ -1,7 +1,7 @@
 import express from "express"
 
 import {loginUser, getUser} from "../controllers/userController.js"
-import { validateLogin } from "../middlewares/validateLogin.js"
+import validateLogin  from "../middlewares/validateLogin.js"
 import validateToken from "../middlewares/validateToken.js"
 
 const userRouter = express.Router()

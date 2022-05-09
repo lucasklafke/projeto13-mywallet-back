@@ -21,11 +21,11 @@ export async function loginUser(req,res){
 
             res.send(token)
        } else{
-           res.send("Invalid user")
+           res.status(500).send("Invalid user")
        }
     }catch(error){
         res.send(error)
-        console.log("nao deu bom",error.message)
+        console.log(error)
     }
 }
 

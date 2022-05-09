@@ -1,9 +1,8 @@
 import joi from "joi"
 
 const transactionsSchema = joi.object({
-    email: joi.string().required(),
-    token: joi.required(),
-    amount: joi.number().required()
+    amount: joi.number().required(),
+    description: joi.string().max(30)
 })
 
 export default transactionsSchema

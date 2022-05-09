@@ -15,7 +15,8 @@ export async function getTransactions(req,res){
 }
 
 export async function deposit(req,res){
-    const {email, amount} = req.body
+    const {description, amount} = req.body
+    const email = res.locals.email
     const validation = transactionsSchema.validate(req.body)
 
     const date = new Date()
@@ -24,7 +25,7 @@ export async function deposit(req,res){
     }
     try {
         const transactionsCollection = db.collection("transactions")
-        const deposit = await transactionsCollection.insertOne({ email, amount, type:"deposit",date: date.toLocaleDateString()})
+        const deposit = await transactionsCollection.insertOne({ email, amount, description, type:"deposit",date: date.toLocaleDateString()})
         if (deposit) {
             res.send("deposit made successfully!")
         }
@@ -35,19 +36,22 @@ export async function deposit(req,res){
 }
 
 export async function withdraw(req, res) {
-    const { email, amount } = req.body
+    const { description, amount } = req.body
+    const email = res.locals.email
     const validation = transactionsSchema.validate(req.body)
 
+    const date = new Date()
     if(validation.error){
         return res.status(422).send(validation.error.message)
     }
     try {
         const transactionsCollection = db.collection("transactions")
-        const withdraw = await transactionsCollection.insertOne({ email, amount, type: "withdraw", date: date.toLocaleDateString() })
+        const withdraw = await transactionsCollection.insertOne({ email, amount, description, type: "withdraw", date: date.toLocaleDateString() })
         if (withdraw) {
             res.send("withdraw made successfully!")
         }
     } catch (error) {
+        console.log(error.message)
         res.status(500).send("something went wrong, try again!")
     }
 }

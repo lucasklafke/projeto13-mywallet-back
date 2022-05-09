@@ -16,9 +16,10 @@ async function validateToken(req,res,next){
         if(session){
             console.log("session", session)
             res.locals.email = session.email
+            res.locals.token = token
         }
     }catch(e){
-
+        res.send(e)
     }
     next()
 }

@@ -6,8 +6,8 @@ const transactionRouter = express.Router()
 
 transactionRouter.get("/transactions",validateToken, getTransactions)
 
-transactionRouter.post("/transactions/deposit", deposit)
+transactionRouter.post("/transaction/deposit",validateToken, deposit)
 
-transactionRouter.post("/transactions/withdraw", withdraw)
+transactionRouter.post("/transaction/withdraw", validateToken, withdraw)
 
 export default transactionRouter
